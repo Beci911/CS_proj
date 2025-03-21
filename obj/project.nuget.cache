@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GlFRFEVUWOQ=",
+  "dgSpecHash": "Y0+VFT8tuDw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\belak\\Documents\\CS_Mentorprogram\\Projekt\\Proj\\Proj.csproj",
+  "projectFilePath": "C:\\Users\\belak\\Documents\\CS_Mentorprogram\\Projekt\\CS_proj\\Proj.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\belak\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\belak\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.0\\microsoft.aspnetcore.openapi.9.0.0.nupkg.sha512",

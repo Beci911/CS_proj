@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\belak\\Documents\\CS_Mentorprogram\\Projekt\\Proj\\Proj.csproj": {}
+    "C:\\Users\\belak\\Documents\\CS_Mentorprogram\\Projekt\\CS_proj\\Proj.csproj": {}
   },
   "projects": {
-    "C:\\Users\\belak\\Documents\\CS_Mentorprogram\\Projekt\\Proj\\Proj.csproj": {
+    "C:\\Users\\belak\\Documents\\CS_Mentorprogram\\Projekt\\CS_proj\\Proj.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\belak\\Documents\\CS_Mentorprogram\\Projekt\\Proj\\Proj.csproj",
+        "projectUniqueName": "C:\\Users\\belak\\Documents\\CS_Mentorprogram\\Projekt\\CS_proj\\Proj.csproj",
         "projectName": "Proj",
-        "projectPath": "C:\\Users\\belak\\Documents\\CS_Mentorprogram\\Projekt\\Proj\\Proj.csproj",
+        "projectPath": "C:\\Users\\belak\\Documents\\CS_Mentorprogram\\Projekt\\CS_proj\\Proj.csproj",
         "packagesPath": "C:\\Users\\belak\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\belak\\Documents\\CS_Mentorprogram\\Projekt\\Proj\\obj\\",
+        "outputPath": "C:\\Users\\belak\\Documents\\CS_Mentorprogram\\Projekt\\CS_proj\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

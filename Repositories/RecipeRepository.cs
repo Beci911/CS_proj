@@ -138,26 +138,27 @@ public class RecipeRepository : IRecipeRepository
         return await _context.Ingredients.Where(i => ingredientNames.Contains(i.IngredientName)).ToListAsync();
     }
 
-   public async Task<Recipe> GetRandomRecipeAsync(List<string> requiredIngredients = null)
+public async Task<Recipe> GetRandomRecipeAsync(List<string> requiredIngredients = null)
 {
     var query = _context.Recipes
         .Include(r => r.Ingredients)
         .AsQueryable();
 
-    if (requiredIngredients != null && requiredIngredients.Any())
+    if (requiredIngredients != null && requiredIngredients.Count > 0)
     {
-        query = query.Where(r => r.Ingredients.Any(i => requiredIngredients.Contains(i.IngredientName)));
+        query = query.Where(r => requiredIngredients.All(reqIng => r.Ingredients.Any(i => i.IngredientName == reqIng)));
     }
 
     if (!await query.AnyAsync())
     {
-        return null; 
+        return null;
     }
 
     var randomRecipe = await query
-        .OrderBy(r => Guid.NewGuid()) 
+        .OrderBy(r => Guid.NewGuid())
         .FirstOrDefaultAsync();
 
     return randomRecipe;
 }
+
 }
