@@ -138,27 +138,73 @@ public class RecipeRepository : IRecipeRepository
         return await _context.Ingredients.Where(i => ingredientNames.Contains(i.IngredientName)).ToListAsync();
     }
 
-public async Task<Recipe> GetRandomRecipeAsync(List<string> requiredIngredients = null)
-{
-    var query = _context.Recipes
-        .Include(r => r.Ingredients)
-        .AsQueryable();
-
-    if (requiredIngredients != null && requiredIngredients.Count > 0)
+    public async Task<Recipe> GetRandomRecipeAsync(List<string> requiredIngredients = null)
     {
-        query = query.Where(r => requiredIngredients.All(reqIng => r.Ingredients.Any(i => i.IngredientName == reqIng)));
+        var query = _context.Recipes
+            .Include(r => r.Ingredients)
+            .AsQueryable();
+
+        if (requiredIngredients != null && requiredIngredients.Count > 0)
+        {
+            query = query.Where(r => requiredIngredients.All(reqIng => r.Ingredients.Any(i => i.IngredientName == reqIng)));
+        }
+
+        if (!await query.AnyAsync())
+        {
+            return null;
+        }
+
+        var randomRecipe = await query
+            .OrderBy(r => Guid.NewGuid())
+            .FirstOrDefaultAsync();
+
+        return randomRecipe;
     }
 
-    if (!await query.AnyAsync())
+    public async Task<List<Recipe>> GetRecipesByUserIdAsync(int userId)
     {
-        return null;
+        return await _context.Recipes
+            .Where(r => r.UserId == userId)
+            .ToListAsync();
     }
 
-    var randomRecipe = await query
-        .OrderBy(r => Guid.NewGuid())
-        .FirstOrDefaultAsync();
+    public async Task<List<Recipe>> GetFavoriteRecipesByUserIdAsync(int userId)
+    {
+        var user = await _context.Users
+            .Include(u => u.FavoriteRecipes)
+            .FirstOrDefaultAsync(u => u.Id == userId);
 
-    return randomRecipe;
-}
+        return user?.FavoriteRecipes.ToList() ?? new List<Recipe>();
+    }
+
+    public async Task AddFavoriteAsync(int userId, int recipeId)
+    {
+        var user = await _context.Users.Include(u => u.FavoriteRecipes).FirstOrDefaultAsync(u => u.Id == userId);
+        var recipe = await _context.Recipes.FindAsync(recipeId);
+
+        if (user == null || recipe == null)
+            throw new ArgumentException("User or Recipe not found");
+
+        if (!user.FavoriteRecipes.Contains(recipe))
+        {
+            user.FavoriteRecipes.Add(recipe);
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    public async Task RemoveFavoriteAsync(int userId, int recipeId)
+    {
+        var user = await _context.Users.Include(u => u.FavoriteRecipes).FirstOrDefaultAsync(u => u.Id == userId);
+        var recipe = await _context.Recipes.FindAsync(recipeId);
+
+        if (user == null || recipe == null)
+            throw new ArgumentException("User or Recipe not found");
+
+        if (user.FavoriteRecipes.Contains(recipe))
+        {
+            user.FavoriteRecipes.Remove(recipe);
+            await _context.SaveChangesAsync();
+        }
+    }
 
 }

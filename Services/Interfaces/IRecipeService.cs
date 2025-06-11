@@ -14,4 +14,9 @@ public interface IRecipeService
     Task<RecipeDto> UpdateRecipe(RecipeDto recipeDto);
     Task<bool> RemoveIngredientFromRecipe(int recipeId, int ingredientId);
     Task<RecipeDto> GetRandomRecipeAsync(List<string> requiredIngredients = null);
+
+    Task<List<RecipeDto>> GetRecipesByUserIdAsync(int userId);
+    Task<List<RecipeDto>> GetFavoriteRecipesByUserIdAsync(int userId);
+    Task AddFavoriteAsync(int userId, int recipeId);
+    Task RemoveFavoriteAsync(int userId, int recipeId);
 }

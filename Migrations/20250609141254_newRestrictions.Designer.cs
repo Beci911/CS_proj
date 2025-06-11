@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Proj.Migrations
 {
     [DbContext(typeof(RecipeContext))]
-    [Migration("20250313231552_AutoMigration")]
-    partial class AutoMigration
+    [Migration("20250609141254_newRestrictions")]
+    partial class newRestrictions
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,21 @@ namespace Proj.Migrations
                     b.HasIndex("RecipesId");
 
                     b.ToTable("IngredientRecipe");
+                });
+
+            modelBuilder.Entity("RecipeUser", b =>
+                {
+                    b.Property<int>("FavoriteRecipesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FavoritedByUsersId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("FavoriteRecipesId", "FavoritedByUsersId");
+
+                    b.HasIndex("FavoritedByUsersId");
+
+                    b.ToTable("RecipeUser");
                 });
 
             modelBuilder.Entity("stuff.Ingredient", b =>
@@ -75,9 +90,45 @@ namespace Proj.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Recipes");
+                });
+
+            modelBuilder.Entity("stuff.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("IngredientRecipe", b =>
@@ -93,6 +144,36 @@ namespace Proj.Migrations
                         .HasForeignKey("RecipesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RecipeUser", b =>
+                {
+                    b.HasOne("stuff.Recipe", null)
+                        .WithMany()
+                        .HasForeignKey("FavoriteRecipesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("stuff.User", null)
+                        .WithMany()
+                        .HasForeignKey("FavoritedByUsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("stuff.Recipe", b =>
+                {
+                    b.HasOne("stuff.User", "User")
+                        .WithMany("RecipesAdded")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("stuff.User", b =>
+                {
+                    b.Navigation("RecipesAdded");
                 });
 #pragma warning restore 612, 618
         }

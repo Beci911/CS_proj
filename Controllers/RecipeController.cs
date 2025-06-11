@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using stuff;
 
@@ -19,7 +21,7 @@ public class RecipeController : ControllerBase
     public async Task<ActionResult<List<RecipeDto>>> GetAllRecipes()
     {
         var recipes = await _recipeService.GetAllRecipes();
-        return Ok(recipes);
+        return Ok(new { recipes });
     }
 
     [HttpGet("{id}")]
@@ -68,6 +70,7 @@ public class RecipeController : ControllerBase
         return CreatedAtAction(nameof(GetRecipe), new { id = addedRecipe.Id }, addedRecipe);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<ActionResult<RecipeDto>> UpdateRecipe(int id, [FromBody] RecipeDto recipeDto)
     {
@@ -95,6 +98,7 @@ public class RecipeController : ControllerBase
         return Ok(updatedRecipe);
     }
 
+    [Authorize(Roles = "ADMIN")]
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteRecipe(int id)
     {
@@ -112,6 +116,7 @@ public class RecipeController : ControllerBase
         return NoContent();
     }
 
+    [Authorize]
     [HttpPost("{recipeId}/ingredients/{ingredientId}")]
     public async Task<ActionResult<RecipeDto>> AddIngredientToRecipe(int recipeId, int ingredientId)
     {
@@ -129,6 +134,7 @@ public class RecipeController : ControllerBase
         return Ok(recipe);
     }
 
+    [Authorize]
     [HttpDelete("{recipeId}/ingredients/{ingredientId}")]
     public async Task<ActionResult> RemoveIngredientFromRecipe(int recipeId, int ingredientId)
     {
@@ -146,23 +152,56 @@ public class RecipeController : ControllerBase
         return NoContent();
     }
 
-[HttpGet("suggestion")]
-public async Task<ActionResult<RecipeDto>> GetRandomRecipe([FromQuery] string ingredients = null)
-{
-    try
+    [HttpGet("suggestion")]
+    public async Task<ActionResult<RecipeDto>> GetRandomRecipe([FromQuery] string ingredients = null)
     {
-    
-        var requiredIngredients = ingredients?
-            .Split(',', StringSplitOptions.RemoveEmptyEntries)
-            .Select(i => i.Trim())
-            .ToList();
+        try
+        {
+            var requiredIngredients = ingredients?
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(i => i.Trim())
+                .ToList();
 
-        var randomRecipe = await _recipeService.GetRandomRecipeAsync(requiredIngredients);
-        return Ok(randomRecipe);
+            var randomRecipe = await _recipeService.GetRandomRecipeAsync(requiredIngredients);
+            return Ok(randomRecipe);
+        }
+        catch (NotFoundException)
+        {
+            return NotFound("No recipes found with the specified ingredients.");
+        }
     }
-    catch (NotFoundException ex)
+
+    
+    [HttpGet("user/{userId}")]
+    public async Task<ActionResult<List<RecipeDto>>> GetRecipesByUserId(int userId)
     {
-        return NotFound("No recipes found with the specified ingredients.");
+        var recipes = await _recipeService.GetRecipesByUserIdAsync(userId);
+        return Ok(recipes);
     }
-}
+
+    
+    [HttpGet("user/{userId}/favorites")]
+    public async Task<ActionResult<List<RecipeDto>>> GetFavoriteRecipesByUserId(int userId)
+    {
+        var favorites = await _recipeService.GetFavoriteRecipesByUserIdAsync(userId);
+        return Ok(favorites);
+    }
+
+    
+    [Authorize]
+    [HttpPost("{recipeId}/favorite/user/{userId}")]
+    public async Task<IActionResult> AddFavorite(int recipeId, int userId)
+    {
+        await _recipeService.AddFavoriteAsync(userId, recipeId);
+        return Ok(recipeId);
+    }
+
+   
+    [Authorize]
+    [HttpDelete("{recipeId}/favorite/user/{userId}")]
+    public async Task<IActionResult> RemoveFavorite(int recipeId, int userId)
+    {
+        await _recipeService.RemoveFavoriteAsync(userId, recipeId);
+        return Ok(recipeId);
+    }
 }

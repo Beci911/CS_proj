@@ -53,4 +53,16 @@ public static class Mapper
             IngredientName = ingredientDto.IngredientName
         };
     }
+
+    public static UserResponseDto MapToDto(User user)
+    {
+        return new UserResponseDto
+        {
+            Id = user.Id,
+            Username = user.Username,
+            Email = user.Email,
+            IsAdmin = user.Role?.ToLower() == "admin"
+        };
+    }
+
 }

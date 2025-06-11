@@ -141,7 +141,10 @@ C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Proj.
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Proj.runtimeconfig.json
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Proj.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Proj.pdb
+C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\AutoMapper.dll
+C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Humanizer.dll
+C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Microsoft.Build.Locator.dll
@@ -165,6 +168,12 @@ C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Micro
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Microsoft.OpenApi.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Mono.TextTemplating.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Npgsql.dll
@@ -178,6 +187,7 @@ C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\Syste
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\System.Composition.Hosting.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\System.Composition.Runtime.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\System.Composition.TypedParts.dll
+C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\System.Text.Json.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
 C:\Users\belak\Documents\CS_Mentorprogram\Projekt\CS_proj\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll

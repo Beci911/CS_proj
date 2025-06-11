@@ -75,13 +75,36 @@ public class RecipeService : IRecipeService
 
     public async Task<RecipeDto> GetRandomRecipeAsync(List<string> requiredIngredients = null)
     {
-    var randomRecipe = await _recipeRepository.GetRandomRecipeAsync(requiredIngredients);
+        var randomRecipe = await _recipeRepository.GetRandomRecipeAsync(requiredIngredients);
 
-    if (randomRecipe == null)
+        if (randomRecipe == null)
+        {
+            throw new NotFoundException("No recipes found with the specified ingredients.");
+        }
+
+        return Mapper.RecipeToDto(randomRecipe);
+    }
+    public async Task<List<RecipeDto>> GetRecipesByUserIdAsync(int userId)
     {
-        throw new NotFoundException("No recipes found with the specified ingredients.");
+        var recipes = await _recipeRepository.GetRecipesByUserIdAsync(userId);
+        return recipes?.Select(Mapper.RecipeToDto).ToList() ?? new List<RecipeDto>();
     }
 
-    return Mapper.RecipeToDto(randomRecipe);
-}
+    public async Task<List<RecipeDto>> GetFavoriteRecipesByUserIdAsync(int userId)
+    {
+        var favoriteRecipes = await _recipeRepository.GetFavoriteRecipesByUserIdAsync(userId);
+        return favoriteRecipes?.Select(Mapper.RecipeToDto).ToList() ?? new List<RecipeDto>();
+    }
+
+    public async Task AddFavoriteAsync(int userId, int recipeId)
+    {
+        await _recipeRepository.AddFavoriteAsync(userId, recipeId);
+    }
+
+    public async Task RemoveFavoriteAsync(int userId, int recipeId)
+    {
+        await _recipeRepository.RemoveFavoriteAsync(userId, recipeId);
+    }
+
+
 }
